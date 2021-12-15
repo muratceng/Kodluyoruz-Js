@@ -1,8 +1,7 @@
-let name = prompt("adınız nedir")
-
-document.getElementById("myName").innerHTML=name;
-console.log(name);
-console.log(Date.now);
+function showName(){
+    let name = prompt("adınız nedir")
+    document.getElementById("myName").innerHTML=name;
+}
 
  
 
@@ -44,4 +43,5 @@ function showTime(){
     setInterval(showTime,1000);
 
 }
+showName();
 showTime();
