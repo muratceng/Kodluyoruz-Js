@@ -83,33 +83,63 @@ const menu = [
 ];
 
 let buttonDom=document.querySelector(".btn-container");
+let sectionDom=document.querySelector(".section-center")
 console.log("deneme")
 
-let btnAll=document.createElement("btn");
-btnAll.innerHTML="All";
-btnAll.classList.add("btn","btn-outline-secondary","me-3");
-buttonDom.appendChild(btnAll);
-let btnKorea=document.createElement("btn");
-btnKorea.innerHTML="Korea";
-btnKorea.classList.add("btn","btn-outline-secondary","me-3");
-buttonDom.appendChild(btnKorea);
-let btnJapan=document.createElement("btn");
-btnJapan.innerHTML="Japan";
-btnJapan.classList.add("btn","btn-outline-secondary","me-3");
-buttonDom.appendChild(btnJapan);
-let btnChina=document.createElement("btn");
-btnChina.innerHTML="China";
-btnChina.classList.add("btn","btn-outline-secondary","me-3");
-buttonDom.appendChild(btnChina);
+//gerekli butonlar eklendi.
+addButton("All");
+addButton("Korea");
+addButton("Japan");
+addButton("China");
+
+//buton eklemeyi sağlayan fonksiyon.
+function addButton(value){
+  let btnTemp=document.createElement("btn");
+  btnTemp.classList.add("btn","btn-outline-secondary","me-3");
+  btnTemp.innerHTML=value;
+  buttonDom.appendChild(btnTemp);
+}
+
+//ürünleri eklemeyi sağlayan fonksiyon.
+function productAdd(values){
+  console.log("ürün ekleme");
+  let temp=document.createElement("div");
+  temp.classList.add("col-6", "row","mt-2");
+  let picture=document.createElement("div");
+  picture.classList.add("col-3");
+  let info=document.createElement("div");
+  info.classList.add("col-9");
+  let imgDom=document.createElement("img");
+
+  imgDom.height=200 ;
+  
+  imgDom.src=values.img;
+  imgDom.classList.add("w-100","float-start","border","border-4","border-dark","rounded-3")
+  
+  let titleDom=document.createElement("h3");
+  titleDom.innerHTML=values.title;
+  titleDom.classList.add("text-danger","border-bottom","border-dark");
+  let span=document.createElement("span");
+  span.classList.add("float-end");
+  span.innerHTML=values.price;
+  let pDom=document.createElement("p");
+  pDom.innerHTML=values.desc;
 
 
-let sectionDom=document.querySelector(".section-center")
+  
+  titleDom.appendChild(span);
+  picture.appendChild(imgDom);
+  info.appendChild(titleDom);
+  info.appendChild(pDom);
+  temp.appendChild(picture);
+  temp.appendChild(info);
+  sectionDom.appendChild(temp);
 
-let temp=document.createElement("div");
-temp.classList.add("col-sm-6");
-let tempdiv=document.createElement("div");
-let picture=document.createElement("div");
-picture.classList.add("col-sm-4");
-let info=document.createElement("div");
-info.classList.add("col-sm-8");
-let img=document.createElement("img");
+}
+
+
+
+
+for(let i=0;i<menu.length;i++){
+  productAdd(menu[i]);
+}
