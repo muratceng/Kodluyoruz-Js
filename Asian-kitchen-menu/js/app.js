@@ -97,25 +97,29 @@ function addButton(value){
   let btnTemp=document.createElement("btn");
   btnTemp.classList.add("btn","btn-outline-secondary","me-3");
   btnTemp.innerHTML=value;
+  btnTemp.addEventListener("click",list_Product);
   buttonDom.appendChild(btnTemp);
 }
 
 //ürünleri eklemeyi sağlayan fonksiyon.
 function productAdd(values){
   console.log("ürün ekleme");
+  //ana div tanımlandı.
   let temp=document.createElement("div");
   temp.classList.add("col-6", "row","mt-2");
+  //fotoğrafın gösterildiği div tanımlandı.
   let picture=document.createElement("div");
   picture.classList.add("col-3");
+  //yemek başlığı ve bilgilerin bulunduğu div tanımlandı.
   let info=document.createElement("div");
   info.classList.add("col-9");
+  //fotoğraf divinin içine eklenicek img tanımlandı ve gerekli atamalar yapıldı.
   let imgDom=document.createElement("img");
-
   imgDom.height=200 ;
-  
   imgDom.src=values.img;
   imgDom.classList.add("w-100","float-start","border","border-4","border-dark","rounded-3")
   
+  //info divi için başlık ve açıklama kısımları tanımlandı ve gerekli atamalar yapıldı.
   let titleDom=document.createElement("h3");
   titleDom.innerHTML=values.title;
   titleDom.classList.add("text-danger","border-bottom","border-dark");
@@ -125,8 +129,7 @@ function productAdd(values){
   let pDom=document.createElement("p");
   pDom.innerHTML=values.desc;
 
-
-  
+  //Yapının hiyerarşisine göre section içerisi dolduruldu.
   titleDom.appendChild(span);
   picture.appendChild(imgDom);
   info.appendChild(titleDom);
@@ -137,9 +140,51 @@ function productAdd(values){
 
 }
 
+//kategorilerine göre yeni menüler oluşturuldu.
+const Korea_food = menu.filter(item=> item.category=="Korea");
+console.log(Korea_food);
+const Japan_food=menu.filter(item=>item.category=="Japan");
+console.log(Japan_food);
+const China_food=menu.filter(item=>item.category=="China");
+console.log(China_food);
 
 
+//tıklanan butonun innerHtml ine göre listelemeyi sağlar.
+function list_Product(item){
+  if(item.target.innerHTML=="Japan"){
+    sectionDom.innerHTML="";
+    
+    for(let i=0;i<Japan_food.length;i++){
+      productAdd(Japan_food[i]);
+    }
+  }
 
+  if(item.target.innerHTML=="Korea"){
+    sectionDom.innerHTML="";
+    
+    for(let i=0;i<Korea_food.length;i++){
+      productAdd(Korea_food[i]);
+    }
+  }
+
+  if(item.target.innerHTML=="China"){
+    sectionDom.innerHTML="";
+    
+    for(let i=0;i<China_food.length;i++){
+      productAdd(China_food[i]);
+    }
+  }
+
+    if(item.target.innerHTML=="All"){
+      sectionDom.innerHTML="";
+      
+      for(let i=0;i<menu.length;i++){
+        productAdd(menu[i]);
+      }
+    }
+}
+
+//default olarak tüm menüyü listeler.
 for(let i=0;i<menu.length;i++){
   productAdd(menu[i]);
 }
